@@ -15,9 +15,11 @@ const CaseList = () => {
     pages: 0
   });
 
+ 
+
   useEffect(() => {
-    fetchCases();
-  }, [pagination.page, statusFilter]);
+  fetchCases();
+}, [fetchCases]);
 
   const fetchCases = async () => {
     try {

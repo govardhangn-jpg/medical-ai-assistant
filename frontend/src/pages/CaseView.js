@@ -21,9 +21,10 @@ const CaseView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-  useEffect(() => {
-    fetchCase();
-  }, [id]);
+ const fetchCases = useCallback(() => {
+  
+  fetchCases();
+}, []);
 
   const fetchCase = async () => {
     try {
