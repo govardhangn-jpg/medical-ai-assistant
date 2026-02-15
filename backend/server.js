@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 app.use(helmet()); // Security headers
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'https://beamish-longma-5b871d.netlify.app',
+  origin: process.env.FRONTEND_URL || 'https://medical-ai-assistant-1-z149.onrender.com',
   credentials: true
 }));
 app.use(compression()); // Compress responses
