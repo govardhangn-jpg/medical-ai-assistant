@@ -16,7 +16,7 @@ const app = express();
 // Middleware
 app.use(helmet()); // Security headers
 app.use(cors({
-  origin: ["https://beamish-longma-5b871d.netlify.app"],
+  origin: true,
   credentials: true
 }));
 app.use(compression()); // Compress responses
