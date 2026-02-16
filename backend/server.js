@@ -12,6 +12,7 @@ const caseRoutes = require('./routes/caseRoutes');
 const authRoutes = require('./routes/authRoutes');
 
 const app = express();
+app.set('trust proxy', 1); // Add this line - trust first proxy
 
 // Middleware
 app.use(helmet()); // Security headers
