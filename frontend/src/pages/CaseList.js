@@ -17,19 +17,19 @@ const CaseList = () => {
 
  
 
-  useEffect(() => {
+const fetchCases = useCallback(async () => {
+  try {
+    const response = await fetch("/api/cases");
+    const data = await response.json();
+    setCases(data);
+  } catch (error) {
+    console.error(error);
+  }
+}, []);
+
+useEffect(() => {
   fetchCases();
 }, [fetchCases]);
-
-  const fetchCases = async () => {
-    try {
-      setLoading(true);
-      const params = {
-        page: pagination.page,
-        limit: pagination.limit,
-        ...(statusFilter && { status: statusFilter }),
-        ...(searchTerm && { search: searchTerm })
-      };
       
       const response = await caseAPI.getCases(params);
       setCases(response.data.cases);

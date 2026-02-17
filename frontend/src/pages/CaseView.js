@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import { caseAPI } from '../services/api';
 import {
@@ -20,11 +20,6 @@ const CaseView = () => {
   const [caseData, setCaseData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-
- const fetchCases = useCallback(() => {
-  
-  fetchCases();
-}, []);
 
   const fetchCase = async () => {
     try {
