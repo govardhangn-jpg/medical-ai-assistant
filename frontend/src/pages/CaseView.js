@@ -23,16 +23,7 @@ const CaseView = () => {
 
 
 
-  const fetchCase = async () => {
-    try {
-      const response = await caseAPI.getCaseById(id);
-      setCaseData(response.data.case);
-      setLoading(false);
-    } catch (err) {
-      setError('Failed to load case');
-      setLoading(false);
-    }
-  };
+
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this case?')) {
