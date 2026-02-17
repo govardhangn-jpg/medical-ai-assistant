@@ -21,6 +21,8 @@ const CaseView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
+
+
   const fetchCase = async () => {
     try {
       const response = await caseAPI.getCaseById(id);
