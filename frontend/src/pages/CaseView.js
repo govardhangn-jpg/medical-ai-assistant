@@ -17,9 +17,7 @@ import {
 const CaseView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [caseData, setCaseData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+
 
 
 
