@@ -18,6 +18,7 @@ app.set('trust proxy', 1); // Add this line - trust first proxy
 app.use(helmet()); // Security headers
 app.use(cors({
   origin: "https://beamish-longma-5b871d.netlify.app",
+  methods: ["GET", "POST"],
   credentials: true
 }));
 app.use(compression()); // Compress responses
