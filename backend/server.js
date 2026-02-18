@@ -32,7 +32,7 @@ const limiter = rateLimit({
   max: 100, // Limit each IP to 100 requests per windowMs
   message: 'Too many requests from this IP, please try again later.'
 });
-app.use('/api/', limiter);
+app.use('/api', limiter);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGODB_URI, {
@@ -47,6 +47,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cases', caseRoutes);
 
 // Health check endpoint
+
 
 app.get("/", (req, res) => {
   res.send("Server is running");
