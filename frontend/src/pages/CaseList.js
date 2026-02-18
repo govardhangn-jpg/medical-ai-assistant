@@ -15,9 +15,16 @@ const CaseList = () => {
     pages: 0
   });
 
- 
-
-
+  // ✅ formatDate defined at component scope so it's accessible in JSX
+  const formatDate = (date) => {
+    return new Date(date).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+  };
 
   const fetchCases = async () => {
     try {
@@ -28,7 +35,7 @@ const CaseList = () => {
         ...(statusFilter && { status: statusFilter }),
         ...(searchTerm && { search: searchTerm })
       };
-      
+
       const response = await caseAPI.getCases(params);
       setCases(response.data.cases);
       setPagination(response.data.pagination);
@@ -39,25 +46,15 @@ const CaseList = () => {
     }
   };
 
-
   const handleSearch = (e) => {
     e.preventDefault();
     fetchCases();
   };
 
-  const formatDate = (date) => {
-    return new Date(date).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit'
-    });
-
+  // ✅ useEffect properly closed with dependency array
   useEffect(() => {
-  fetchCases();
-}, [fetchCases]);  
-  };
+    fetchCases();
+  }, [pagination.page, statusFilter]);
 
   const handlePageChange = (newPage) => {
     setPagination({ ...pagination, page: newPage });
@@ -214,11 +211,10 @@ const CaseList = () => {
               >
                 Previous
               </button>
-              
+
               <div className="flex space-x-1">
                 {[...Array(pagination.pages)].map((_, i) => {
                   const page = i + 1;
-                  // Show first page, last page, current page, and pages around current
                   if (
                     page === 1 ||
                     page === pagination.pages ||
