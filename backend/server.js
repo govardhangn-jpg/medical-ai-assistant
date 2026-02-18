@@ -17,7 +17,7 @@ app.set('trust proxy', 1); // Add this line - trust first proxy
 // Middleware
 app.use(helmet()); // Security headers
 app.use(cors({
-  origin: "https://beamish-longma-5b871d.netlify.app",
+  origin: "https://adorable-stroopwafel-0036b3.netlify.app",
   methods: ["GET", "POST"],
   credentials: true
 }));
