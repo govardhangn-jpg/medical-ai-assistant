@@ -22,7 +22,6 @@ const CaseView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch case data by ID on mount
   useEffect(() => {
     const fetchCase = async () => {
       try {
@@ -36,7 +35,6 @@ const CaseView = () => {
         setLoading(false);
       }
     };
-
     fetchCase();
   }, [id]);
 
@@ -138,7 +136,6 @@ const CaseView = () => {
             </span>
           </div>
         </div>
-
         <div className="bg-gray-50 rounded-lg p-4">
           <h3 className="font-semibold text-gray-900 mb-2">Chief Complaint</h3>
           <p className="text-gray-700">{clinicalData.chiefComplaint}</p>
@@ -245,7 +242,6 @@ const CaseView = () => {
             <p className="text-red-800">{aiAnalysis.treatmentPlan.immediateManagement}</p>
           </div>
         )}
-
         {aiAnalysis.treatmentPlan.pharmacological.length > 0 && (
           <div className="mb-4">
             <h3 className="font-semibold text-gray-900 mb-2">Pharmacological:</h3>
@@ -256,7 +252,6 @@ const CaseView = () => {
             </ul>
           </div>
         )}
-
         {aiAnalysis.treatmentPlan.nonPharmacological.length > 0 && (
           <div className="mb-4">
             <h3 className="font-semibold text-gray-900 mb-2">Non-pharmacological:</h3>
@@ -267,7 +262,6 @@ const CaseView = () => {
             </ul>
           </div>
         )}
-
         {aiAnalysis.treatmentPlan.monitoring.length > 0 && (
           <div>
             <h3 className="font-semibold text-gray-900 mb-2">Monitoring:</h3>

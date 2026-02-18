@@ -34,7 +34,6 @@ const CaseList = () => {
         ...(statusFilter && { status: statusFilter }),
         ...(searchTerm && { search: searchTerm })
       };
-
       const response = await caseAPI.getCases(params);
       setCases(response.data.cases);
       setPagination(response.data.pagination);
@@ -81,7 +80,6 @@ const CaseList = () => {
       {/* Filters */}
       <div className="card mb-6">
         <div className="flex flex-col md:flex-row gap-4">
-          {/* Search */}
           <form onSubmit={handleSearch} className="flex-1">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -95,7 +93,6 @@ const CaseList = () => {
             </div>
           </form>
 
-          {/* Status Filter */}
           <div className="w-full md:w-48">
             <div className="relative">
               <Filter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
@@ -131,10 +128,7 @@ const CaseList = () => {
         <>
           <div className="space-y-4">
             {cases.map((caseItem) => (
-              <div
-                key={caseItem._id}
-                className="card hover:shadow-md transition-shadow"
-              >
+              <div key={caseItem._id} className="card hover:shadow-md transition-shadow">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center space-x-3 mb-2">
@@ -167,9 +161,7 @@ const CaseList = () => {
 
                     {caseItem.aiAnalysis?.differentialDiagnosis?.length > 0 && (
                       <div className="mb-3">
-                        <span className="text-sm font-medium text-gray-700">
-                          Top Diagnosis:
-                        </span>
+                        <span className="text-sm font-medium text-gray-700">Top Diagnosis:</span>
                         <span className="text-sm text-gray-600 ml-2">
                           {caseItem.aiAnalysis.differentialDiagnosis[0].diagnosis}
                         </span>
@@ -248,7 +240,6 @@ const CaseList = () => {
             </div>
           )}
 
-          {/* Results Summary */}
           <div className="mt-4 text-center text-sm text-gray-600">
             Showing {(pagination.page - 1) * pagination.limit + 1} to{' '}
             {Math.min(pagination.page * pagination.limit, pagination.total)} of{' '}
