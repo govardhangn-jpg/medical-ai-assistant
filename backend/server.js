@@ -47,12 +47,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/cases', caseRoutes);
 
 // Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({
-    status: 'ok',
-    timestamp: new Date().toISOString(),
-    uptime: process.uptime()
-  });
+
+app.get("/", (req, res) => {
+  res.send("Server is running");
 });
 
 // 404 handler
