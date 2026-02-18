@@ -1,5 +1,6 @@
 
-import { useParams, useState, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import { caseAPI } from '../services/api';
 import {
   ArrowLeft,
