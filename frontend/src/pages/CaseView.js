@@ -32,7 +32,13 @@ const CaseView = () => {
         alert('Failed to delete case');
       }
     }
+    const [caseData, setCaseData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   };
+
+  
 
   const handlePrint = () => {
     window.print();
