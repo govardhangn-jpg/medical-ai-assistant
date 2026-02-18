@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { caseAPI } from '../services/api';
 import { FileText, Search, Filter, Eye } from 'lucide-react';
@@ -26,7 +26,8 @@ const CaseList = () => {
     });
   };
 
-  const fetchCases = async () => {
+  // ✅ Wrapped in useCallback so it can be safely listed as a useEffect dependency
+  const fetchCases = useCallback(async () => {
     try {
       setLoading(true);
       const params = {
@@ -44,20 +45,20 @@ const CaseList = () => {
       console.error('Error fetching cases:', error);
       setLoading(false);
     }
-  };
+  }, [pagination.page, pagination.limit, statusFilter, searchTerm]);
 
   const handleSearch = (e) => {
     e.preventDefault();
     fetchCases();
   };
 
-  // ✅ useEffect properly closed with dependency array
+  // ✅ fetchCases is now stable via useCallback — safe to include as dependency
   useEffect(() => {
     fetchCases();
-  }, [pagination.page, statusFilter]);
+  }, [fetchCases]);
 
   const handlePageChange = (newPage) => {
-    setPagination({ ...pagination, page: newPage });
+    setPagination((prev) => ({ ...prev, page: newPage }));
   };
 
   if (loading && cases.length === 0) {
@@ -105,7 +106,7 @@ const CaseList = () => {
                 value={statusFilter}
                 onChange={(e) => {
                   setStatusFilter(e.target.value);
-                  setPagination({ ...pagination, page: 1 });
+                  setPagination((prev) => ({ ...prev, page: 1 }));
                 }}
                 className="input-field pl-10"
               >
