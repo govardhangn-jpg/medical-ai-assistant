@@ -1,8 +1,5 @@
-
-const { caseData, loading, error } = useSomeHook();
-
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 import { caseAPI } from '../services/api';
 import {
   ArrowLeft,
@@ -25,8 +22,23 @@ const CaseView = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch case data by ID on mount
+  useEffect(() => {
+    const fetchCase = async () => {
+      try {
+        setLoading(true);
+        const response = await caseAPI.getCase(id);
+        setCaseData(response.data);
+        setLoading(false);
+      } catch (err) {
+        console.error('Error fetching case:', err);
+        setError('Failed to load case. Please try again.');
+        setLoading(false);
+      }
+    };
 
-
+    fetchCase();
+  }, [id]);
 
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this case?')) {
@@ -37,11 +49,7 @@ const CaseView = () => {
         alert('Failed to delete case');
       }
     }
-  
-
   };
-
-  
 
   const handlePrint = () => {
     window.print();
@@ -84,7 +92,10 @@ const CaseView = () => {
             <Download size={18} className="mr-2" />
             Export
           </button>
-          <button onClick={handleDelete} className="text-red-600 hover:text-red-700 px-4 py-2 rounded-lg hover:bg-red-50">
+          <button
+            onClick={handleDelete}
+            className="text-red-600 hover:text-red-700 px-4 py-2 rounded-lg hover:bg-red-50"
+          >
             <Trash2 size={18} />
           </button>
         </div>
@@ -102,7 +113,7 @@ const CaseView = () => {
                 Patient ID: {patientInfo.patientId}
               </h1>
               <p className="text-gray-600">
-                {patientInfo.age} years • {patientInfo.gender}
+                {patientInfo.age} years &bull; {patientInfo.gender}
               </p>
             </div>
           </div>
@@ -153,7 +164,9 @@ const CaseView = () => {
           {aiAnalysis.differentialDiagnosis.map((dx, index) => (
             <div key={index} className="border-l-4 border-primary-500 pl-4 py-2">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="font-semibold text-gray-900">{index + 1}. {dx.diagnosis}</h3>
+                <h3 className="font-semibold text-gray-900">
+                  {index + 1}. {dx.diagnosis}
+                </h3>
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-medium ${
                     dx.probability === 'High'
@@ -225,7 +238,7 @@ const CaseView = () => {
           <Pill className="text-primary-600" size={24} />
           <h2 className="text-xl font-bold text-gray-900">Treatment Plan</h2>
         </div>
-        
+
         {aiAnalysis.treatmentPlan.immediateManagement && (
           <div className="mb-4 bg-red-50 border border-red-200 rounded-lg p-4">
             <h3 className="font-semibold text-red-900 mb-2">Immediate Management:</h3>
@@ -287,7 +300,9 @@ const CaseView = () => {
         <div className="card mb-6 bg-red-50 border-red-200 print:break-inside-avoid">
           <div className="flex items-center space-x-2 mb-4">
             <AlertTriangle className="text-red-600" size={24} />
-            <h2 className="text-xl font-bold text-red-900">Red Flags / When to Seek Immediate Care</h2>
+            <h2 className="text-xl font-bold text-red-900">
+              Red Flags / When to Seek Immediate Care
+            </h2>
           </div>
           <ul className="list-disc list-inside text-red-800 space-y-2">
             {aiAnalysis.redFlags.map((flag, i) => (
@@ -300,9 +315,9 @@ const CaseView = () => {
       {/* Disclaimer */}
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 print:break-inside-avoid">
         <p className="text-sm text-amber-800">
-          <strong>Medical Disclaimer:</strong> This AI-powered tool provides clinical decision support 
-          based on the information provided. It is designed to assist qualified healthcare professionals 
-          and should not replace clinical judgment, physical examination, or consultation with specialists 
+          <strong>Medical Disclaimer:</strong> This AI-powered tool provides clinical decision support
+          based on the information provided. It is designed to assist qualified healthcare professionals
+          and should not replace clinical judgment, physical examination, or consultation with specialists
           when indicated. The treating physician bears ultimate responsibility for all clinical decisions.
         </p>
       </div>

@@ -15,7 +15,6 @@ const CaseList = () => {
     pages: 0
   });
 
-  // ✅ formatDate defined at component scope so it's accessible in JSX
   const formatDate = (date) => {
     return new Date(date).toLocaleDateString('en-US', {
       month: 'short',
@@ -26,7 +25,6 @@ const CaseList = () => {
     });
   };
 
-  // ✅ Wrapped in useCallback so it can be safely listed as a useEffect dependency
   const fetchCases = useCallback(async () => {
     try {
       setLoading(true);
@@ -52,7 +50,6 @@ const CaseList = () => {
     fetchCases();
   };
 
-  // ✅ fetchCases is now stable via useCallback — safe to include as dependency
   useEffect(() => {
     fetchCases();
   }, [fetchCases]);
@@ -144,7 +141,7 @@ const CaseList = () => {
                       <h3 className="text-lg font-semibold text-gray-900">
                         Patient ID: {caseItem.patientInfo.patientId}
                       </h3>
-                      <span className="text-gray-400">•</span>
+                      <span className="text-gray-400">&bull;</span>
                       <span className="text-gray-600">
                         {caseItem.patientInfo.age}Y, {caseItem.patientInfo.gender}
                       </span>
@@ -183,7 +180,7 @@ const CaseList = () => {
                       <span>Created: {formatDate(caseItem.createdAt)}</span>
                       {caseItem.updatedAt !== caseItem.createdAt && (
                         <>
-                          <span>•</span>
+                          <span>&bull;</span>
                           <span>Updated: {formatDate(caseItem.updatedAt)}</span>
                         </>
                       )}
