@@ -39,10 +39,6 @@ const CaseList = () => {
     }
   };
 
-  useEffect(() => {
-  fetchCases();
-}, [fetchCases]);
-
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -57,6 +53,10 @@ const CaseList = () => {
       hour: '2-digit',
       minute: '2-digit'
     });
+
+  useEffect(() => {
+  fetchCases();
+}, [fetchCases]);  
   };
 
   const handlePageChange = (newPage) => {
