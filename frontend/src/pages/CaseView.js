@@ -1,5 +1,5 @@
 
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useState, useNavigate } from 'react-router-dom';
 import { caseAPI } from '../services/api';
 import {
   ArrowLeft,
@@ -18,7 +18,9 @@ const CaseView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-
+  const [caseData, setCaseData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
 
 
@@ -32,9 +34,7 @@ const CaseView = () => {
         alert('Failed to delete case');
       }
     }
-    const [caseData, setCaseData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  
 
   };
 
